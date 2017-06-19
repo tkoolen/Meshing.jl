@@ -30,7 +30,7 @@ immutable VoxelIndices{T <: Integer}
     tetEdgeCrnrs::NTuple{6,NTuple{2,T}}
     tetTri::NTuple{16,NTuple{6,T}}
 
-    function VoxelIndices()
+    function (::Type{VoxelIndices{T <: Integer}}){T}()
         voxCrnrPos = ((0, 0, 0),
                       (0, 1, 0),
                       (1, 1, 0),
@@ -109,7 +109,7 @@ immutable VoxelIndices{T <: Integer}
                     (1,4,3,0,0,0),
                     (0,0,0,0,0,0))
 
-        new(voxCrnrPos,
+        new{T}(voxCrnrPos,
             voxEdgeCrnrs,
             voxEdgeDir,
             voxEdgeIx,
@@ -304,4 +304,3 @@ end
     vts, fcs = isosurface(df.data, 0.0, eps_val)
     MT(vts, fcs)
 end
-
